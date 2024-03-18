@@ -30,7 +30,6 @@ public class JokeService implements JokeServiceInterface{
     }
 
     @Override
-            //Изменить (сейчас тройная проверка, сделать просто получение (Optional) и дальше уже с ним делать
     public void updateJoke(Long id, String new_joke) {
         Optional<Joke> joke= jokesRepository.findById(id);
             if (joke.isPresent()) {
