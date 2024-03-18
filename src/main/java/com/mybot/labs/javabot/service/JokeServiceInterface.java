@@ -10,6 +10,6 @@ public interface JokeServiceInterface {
     List<Joke> getJokes();
     Optional<Joke> getJokeById(Long id);
     void createJoke(Joke joke);
-    void updateJoke(Long id, String new_joke);
+    void updateJoke(Long id, String newJoke);
     void deleteJoke(Long id);
 }

@@ -40,8 +40,8 @@ public class JokeController {
         return ResponseEntity.ok().build();
         }
 @PutMapping("/{id}")
-    ResponseEntity<Void> updateJoke(@PathVariable Long id, @RequestBody String new_joke){
-        jokeService.updateJoke(id, new_joke);
+    ResponseEntity<Void> updateJoke(@PathVariable Long id, @RequestBody String newJoke){
+        jokeService.updateJoke(id, newJoke);
         return ResponseEntity.ok().build();
     }
 }

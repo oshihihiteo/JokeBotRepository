@@ -30,10 +30,10 @@ public class JokeService implements JokeServiceInterface{
     }
 
     @Override
-    public void updateJoke(Long id, String new_joke) {
+    public void updateJoke(Long id, String newJoke) {
         Optional<Joke> joke= jokesRepository.findById(id);
             if (joke.isPresent()) {
-                joke.get().setText(new_joke) ;
+                joke.get().setText(newJoke) ;
                 joke.get().setUpdated(new java.sql.Date(System.currentTimeMillis()));
                 jokesRepository.save(joke.get());
             }
