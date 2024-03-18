@@ -39,7 +39,7 @@ public class TelegramBotService  {
             }
             else if (messageText.startsWith("/joke")) {
                 Random rand = new Random();
-                Joke joke = jokesRepository.findById(Long.valueOf(rand.nextInt(1, 16))).get();
+                Joke joke = jokesRepository.findById(Long.valueOf(rand.nextInt(1, jokesRepository.findAll().size()))).get();
                 SendMessage request = new SendMessage(update.message().chat().id(), joke.getText())
                         .disableNotification(true);
                 this.telegramBot.execute(request); //Отправляем подготовленное сообщение

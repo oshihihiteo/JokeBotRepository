@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface JokeServiceInterface {
 
-    List<Joke> get_jokes();
-    Optional<Joke> get_joke_by_id(Long id);
-    void create_joke(Joke joke);
-    void update_joke(Long id, String new_joke);
-    void delete_joke(Long id);
+    List<Joke> getJokes();
+    Optional<Joke> getJokeById(Long id);
+    void createJoke(Joke joke);
+    void updateJoke(Long id, String new_joke);
+    void deleteJoke(Long id);
 }

@@ -15,36 +15,36 @@ public class JokeService implements JokeServiceInterface{
     private final JokesRepository jokesRepository;
 
     @Override
-    public List<Joke> get_jokes() {
+    public List<Joke> getJokes() {
         return jokesRepository.findAll();
     }
 
     @Override
-    public Optional<Joke> get_joke_by_id(Long id) {
+    public Optional<Joke> getJokeById(Long id) {
         return jokesRepository.findById(id);
     }
 
     @Override
-    public void create_joke(Joke joke) {
+    public void createJoke(Joke joke) {
         jokesRepository.save(joke);
     }
 
     @Override
-    public void update_joke(Long id, String new_joke) {
-        if (jokesRepository.existsById(id)) {
-            Joke joke = jokesRepository.findById(id).orElse(null);
-            if (joke != null) {
-                joke.setText(new_joke) ;
-                joke.setUpdated(new java.sql.Date(System.currentTimeMillis()));
-                jokesRepository.save(joke);
+            //Изменить (сейчас тройная проверка, сделать просто получение (Optional) и дальше уже с ним делать
+    public void updateJoke(Long id, String new_joke) {
+        Optional<Joke> joke= jokesRepository.findById(id);
+            if (joke.isPresent()) {
+                joke.get().setText(new_joke) ;
+                joke.get().setUpdated(new java.sql.Date(System.currentTimeMillis()));
+                jokesRepository.save(joke.get());
             }
-        } else {
+         else {
             jokesRepository.findById(id);
         }
     }
 
     @Override
-    public void delete_joke(Long id) {
+    public void deleteJoke(Long id) {
         jokesRepository.deleteById(id);
     }
 }

@@ -17,17 +17,17 @@ public class JokeController {
     private final JokeServiceInterface jokeService;
 
     @PostMapping
-    ResponseEntity<Void> create_joke (@RequestBody Joke joke){
-    jokeService.create_joke(joke);
+    ResponseEntity<Void> createJoke (@RequestBody Joke joke){
+    jokeService.createJoke(joke);
     return ResponseEntity.ok().build();
 }
 @GetMapping
-    ResponseEntity<List<Joke>> get_jokes(){
-        return ResponseEntity.ok(jokeService.get_jokes());
+    ResponseEntity<List<Joke>> getJokes(){
+        return ResponseEntity.ok(jokeService.getJokes());
     }
     @GetMapping("/{id}")
-    ResponseEntity<Joke> get_joke_by_id(@PathVariable Long id) {
-        Optional<Joke> jokeOptional = jokeService.get_joke_by_id(id);
+    ResponseEntity<Joke> getJokeById(@PathVariable Long id) {
+        Optional<Joke> jokeOptional = jokeService.getJokeById(id);
         if (jokeOptional.isPresent()) {
             return ResponseEntity.ok(jokeOptional.get());
         } else {
@@ -35,13 +35,13 @@ public class JokeController {
         }
     }
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> delete_joke(@PathVariable Long id){
-        jokeService.delete_joke(id);
+    ResponseEntity<Void> deleteJoke(@PathVariable Long id){
+        jokeService.deleteJoke(id);
         return ResponseEntity.ok().build();
         }
 @PutMapping("/{id}")
-    ResponseEntity<Void> update_joke(@PathVariable Long id, @RequestBody String new_joke){
-        jokeService.update_joke(id, new_joke);
+    ResponseEntity<Void> updateJoke(@PathVariable Long id, @RequestBody String new_joke){
+        jokeService.updateJoke(id, new_joke);
         return ResponseEntity.ok().build();
     }
 }
