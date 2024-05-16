@@ -1,0 +1,79 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1715711574632-1
+      author: organ (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 1
+            sequenceName: called_joke_id_seq
+            startValue: 1
+  - changeSet:
+      id: 1715711574632-2
+      author: organ (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 1
+            sequenceName: joke_id_seq
+            startValue: 1
+  - changeSet:
+      id: 1715711574632-3
+      author: organ (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_jokecalls
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: called_joke
+                  type: BIGINT
+              - column:
+                  name: user_id
+                  type: BIGINT
+              - column:
+                  name: date_and_time
+                  type: DATETIME
+            tableName: joke_calls
+  - changeSet:
+      id: 1715711574632-4
+      author: organ (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_jokes
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: text
+                  type: VARCHAR(255)
+              - column:
+                  name: created
+                  type: DATE
+              - column:
+                  name: updated
+                  type: DATE
+            tableName: jokes
+  - changeSet:
+      id: 1715711574632-5
+      author: organ (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: called_joke
+            baseTableName: joke_calls
+            constraintName: FK_JOKECALLS_ON_CALLED_JOKE
+            referencedColumnNames: id
+            referencedTableName: jokes
+

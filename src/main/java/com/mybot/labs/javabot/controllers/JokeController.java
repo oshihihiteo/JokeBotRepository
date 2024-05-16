@@ -4,6 +4,7 @@ import com.mybot.labs.javabot.model.Joke;
 import com.mybot.labs.javabot.service.JokeService;
 import com.mybot.labs.javabot.service.JokeServiceInterface;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +23,10 @@ public class JokeController {
     return ResponseEntity.ok().build();
 }
 @GetMapping
-    ResponseEntity<List<Joke>> getJokes(){
-        return ResponseEntity.ok(jokeService.getJokes());
+    ResponseEntity<Page<Joke>> getJokes(
+            @RequestParam int page
+){
+        return ResponseEntity.ok(jokeService.getJokes(page));
     }
     @GetMapping("/{id}")
     ResponseEntity<Joke> getJokeById(@PathVariable Long id) {
