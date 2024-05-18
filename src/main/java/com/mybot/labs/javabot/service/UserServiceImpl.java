@@ -3,6 +3,9 @@ package com.mybot.labs.javabot.service;
 import com.mybot.labs.javabot.exceptions.UsernameAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -17,7 +20,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRolesRepository userRolesRepository;
     private final UserRepository userRepository;
@@ -41,6 +44,11 @@ public class UserServiceImpl implements UserService {
             throw new UsernameAlreadyExistsException();
         }
     }
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username).orElseThrow(()->new UsernameNotFoundException(username));
+    }
+
     @Override
     public User getUserById(Long userId) {
         return userRepository.findById(userId)
