@@ -30,8 +30,8 @@ public class ServiceLogAspect {
             log.info("Call {} with args {}", joinPoint.getSignature().getName(), args);
         }
 
-        @AfterReturning(value = "callService()", returning = "object")
-        public void afterCallService(JoinPoint joinPoint, Object object) {
+        @AfterReturning(value = "callService()")
+        public void afterCallService(JoinPoint joinPoint) {
             log.info("Call {} with return {}", joinPoint.getSignature().getName());
         }
 
