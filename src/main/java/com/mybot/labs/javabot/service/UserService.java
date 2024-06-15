@@ -11,5 +11,5 @@ public interface UserService {
 
     User getUserById(Long userId);
 
-    void updateUserRoles(Long userId, List<UserAuthority> authorities);
+    void updateUserRoles(Long userId, UserAuthority authorities);
 }

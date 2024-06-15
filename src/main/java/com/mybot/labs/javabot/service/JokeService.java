@@ -4,6 +4,7 @@ import java.sql.Date;
 import com.mybot.labs.javabot.model.Joke;
 import com.mybot.labs.javabot.model.JokeCalls;
 import com.mybot.labs.javabot.repository.JokesRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class JokeService implements JokeServiceInterface{
     private final JokesRepository jokesRepository;
 

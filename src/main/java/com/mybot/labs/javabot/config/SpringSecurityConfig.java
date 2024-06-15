@@ -19,20 +19,29 @@ import com.mybot.labs.javabot.model.UserAuthority;
 public class SpringSecurityConfig {
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(expressionInterceptUrlRegistry ->
                         expressionInterceptUrlRegistry
-                                .requestMatchers(HttpMethod.POST, "/registration").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/login").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/users/registration").permitAll()
+                                .requestMatchers("/login").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/jokes", "/jokes/*").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/jokes").hasAuthority(UserAuthority.PLACE_ORDERS.getAuthority())
-                                .requestMatchers(HttpMethod.PUT, "/jokes/**").hasAuthority(UserAuthority.MANAGE_ORDERS.getAuthority())
-                                .requestMatchers(HttpMethod.DELETE, "/jokes/**").hasAuthority(UserAuthority.MANAGE_ORDERS.getAuthority())
-                                .requestMatchers("/users/**", "/admin/**").hasAuthority(UserAuthority.FULL.getAuthority())
-                                .anyRequest().authenticated())
+                                .requestMatchers(HttpMethod.POST, "/jokes").hasAnyAuthority(UserAuthority.USER.getAuthority(),
+                                        UserAuthority.MODERATOR.getAuthority(),
+                                        UserAuthority.ADMIN.getAuthority()
+                                )
+                                .requestMatchers(HttpMethod.PUT, "/jokes/**").hasAnyAuthority(UserAuthority.MODERATOR.getAuthority(),
+                                        UserAuthority.ADMIN.getAuthority()
+                                )
+                                .requestMatchers(HttpMethod.DELETE, "/jokes/**").hasAnyAuthority(UserAuthority.MODERATOR.getAuthority(),
+                                        UserAuthority.ADMIN.getAuthority()
+                                )
+                                .requestMatchers("/users/**").hasAuthority(UserAuthority.ADMIN.getAuthority())
+
+
+
+                )
                 .formLogin(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable);
-
         return http.build();
     }
 
